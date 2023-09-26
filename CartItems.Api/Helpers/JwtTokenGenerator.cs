@@ -9,7 +9,7 @@ namespace CartItems.Api.Helpers
 {
     public static class JwtTokenGenerator
     {
-        public static string GenerateJwtToken(string secretKey, UserModel user, int expirationDays = 1)
+        public static string GenerateJwtToken(string secretKey, UserModel user, int expiration = 1)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -24,7 +24,7 @@ namespace CartItems.Api.Helpers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(expirationDays),
+                expires: DateTime.UtcNow.AddHours(expiration),
                 signingCredentials: credentials
             );
 
